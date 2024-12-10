@@ -3,159 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table with Black Background</title>
+    <title>Scrollable Page</title>
     <style>
+        /* Центрирование страницы и фон */
         body {
             background-color: black;
             color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
         }
+
+        /* Контейнер для таблицы */
+        .table-container {
+            width: 90%; /* Ширина таблицы */
+            margin: 50px auto; /* Отступы сверху и снизу */
+        }
+
+        /* Таблица */
         table {
             border-collapse: collapse;
-            width: 80%;
+            width: 100%; /* Таблица занимает весь контейнер */
             text-align: center;
             background-color: #222;
             color: white;
         }
+
         th, td {
             border: 1px solid #555;
-            padding: 10px;
+            padding: 8px; /* Отступы внутри ячеек */
         }
+
         th {
             background-color: #444;
         }
+
+        /* Уменьшение изображений */
         img {
-            width: 50px;
+            width: 40px;
             height: auto;
+        }
+
+        /* Для обеспечения адаптивности */
+        @media screen and (max-width: 768px) {
+            table {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <table>
-        <tr>
-            <th>Place</th>
-            <th>ID</th>
-            <th>Repaints</th>
-            <th>Painters</th>
-            <th>Photo</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>1073319934</td>
-            <td>8.83M</td>
-            <td>128.56K</td>
-            <td><img src="https://static.notpx.app/tournament/1073319934-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>1324081469</td>
-            <td>8.50M</td>
-            <td>81.46K</td>
-            <td><img src="https://static.notpx.app/tournament/1324081469-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>6355200889</td>
-            <td>7.84M</td>
-            <td>159.36K</td>
-            <td><img src="https://static.notpx.app/tournament/6355200889-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>1325258259</td>
-            <td>7.82M</td>
-            <td>191.01K</td>
-            <td><img src="https://static.notpx.app/tournament/1325258259-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>1051759252</td>
-            <td>7.20M</td>
-            <td>64.10K</td>
-            <td><img src="https://static.notpx.app/tournament/1051759252-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>5190413609</td>
-            <td>7.08M</td>
-            <td>67.11K</td>
-            <td><img src="https://static.notpx.app/tournament/5190413609-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td>1964161795</td>
-            <td>4.97M</td>
-            <td>86.28K</td>
-            <td><img src="https://static.notpx.app/tournament/1964161795-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>8</td>
-            <td>7079059155</td>
-            <td>4.82M</td>
-            <td>36.23K</td>
-            <td><img src="https://static.notpx.app/tournament/7079059155-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>9</td>
-            <td>6597594922</td>
-            <td>4.20M</td>
-            <td>48.16K</td>
-            <td><img src="https://static.notpx.app/tournament/6597594922-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>10</td>
-            <td>2060988783</td>
-            <td>3.96M</td>
-            <td>47.33K</td>
-            <td><img src="https://static.notpx.app/tournament/2060988783-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>11</td>
-            <td>7319890725</td>
-            <td>3.88M</td>
-            <td>362.02K</td>
-            <td><img src="https://static.notpx.app/tournament/7319890725-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>12</td>
-            <td>575074575</td>
-            <td>3.54M</td>
-            <td>57.09K</td>
-            <td><img src="https://static.notpx.app/tournament/575074575-6.png?time=1" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>13</td>
-            <td>5038459873</td>
-            <td>3.50M</td>
-            <td>35.56K</td>
-            <td><img src="https://static.notpx.app/tournament/5038459873-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>14</td>
-            <td>1083893924</td>
-            <td>3.34M</td>
-            <td>49.08K</td>
-            <td><img src="https://static.notpx.app/tournament/1083893924-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>15</td>
-            <td>242092214</td>
-            <td>2.94M</td>
-            <td>28.83K</td>
-            <td><img src="https://static.notpx.app/tournament/242092214-6.png" alt="Photo"></td>
-        </tr>
-        <tr>
-            <td>16</td>
-            <td>6908275425</td>
-            <td>2.63M</td>
-            <td>20.71K</td>
-            <td><img src="https://static.notpx.app/tournament/6908275425-6.png" alt="Photo"></td>
-        </tr>
-    </table>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>Place</th>
+                <th>ID</th>
+                <th>Repaints</th>
+                <th>Painters</th>
+                <th>Photo</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>1073319934</td>
+                <td>8.83M</td>
+                <td>128.56K</td>
+                <td><img src="https://static.notpx.app/tournament/1073319934-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>1324081469</td>
+                <td>8.50M</td>
+                <td>81.46K</td>
+                <td><img src="https://static.notpx.app/tournament/1324081469-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>6355200889</td>
+                <td>7.84M</td>
+                <td>159.36K</td>
+                <td><img src="https://static.notpx.app/tournament/6355200889-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>1325258259</td>
+                <td>7.82M</td>
+                <td>191.01K</td>
+                <td><img src="https://static.notpx.app/tournament/1325258259-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>1051759252</td>
+                <td>7.20M</td>
+                <td>64.10K</td>
+                <td><img src="https://static.notpx.app/tournament/1051759252-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>5190413609</td>
+                <td>7.08M</td>
+                <td>67.11K</td>
+                <td><img src="https://static.notpx.app/tournament/5190413609-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>1964161795</td>
+                <td>4.97M</td>
+                <td>86.28K</td>
+                <td><img src="https://static.notpx.app/tournament/1964161795-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>7079059155</td>
+                <td>4.82M</td>
+                <td>36.23K</td>
+                <td><img src="https://static.notpx.app/tournament/7079059155-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>6597594922</td>
+                <td>4.20M</td>
+                <td>48.16K</td>
+                <td><img src="https://static.notpx.app/tournament/6597594922-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>2060988783</td>
+                <td>3.96M</td>
+                <td>47.33K</td>
+                <td><img src="https://static.notpx.app/tournament/2060988783-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>7319890725</td>
+                <td>3.88M</td>
+                <td>362.02K</td>
+                <td><img src="https://static.notpx.app/tournament/7319890725-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>575074575</td>
+                <td>3.54M</td>
+                <td>57.09K</td>
+                <td><img src="https://static.notpx.app/tournament/575074575-6.png?time=1" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>5038459873</td>
+                <td>3.50M</td>
+                <td>35.56K</td>
+                <td><img src="https://static.notpx.app/tournament/5038459873-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>1083893924</td>
+                <td>3.34M</td>
+                <td>49.08K</td>
+                <td><img src="https://static.notpx.app/tournament/1083893924-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>242092214</td>
+                <td>2.94M</td>
+                <td>28.83K</td>
+                <td><img src="https://static.notpx.app/tournament/242092214-6.png" alt="Photo"></td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>6908275425</td>
+                <td>2.63M</td>
+                <td>20.71K</td>
+                <td><img src="https://static.notpx.app/tournament/6908275425-6.png" alt="Photo"></td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
