@@ -1,2 +1,2 @@
-# leaderboard.github.io
+# codewaulet.github.io
 not pixel leaderboard
