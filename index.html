@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Простой Тетрис</title>
+    <title>Полный Тетрис</title>
     <style>
         body {
             background-color: black;
@@ -11,14 +11,26 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        #gameContainer {
+            text-align: center;
         }
         canvas {
             border: 1px solid white;
         }
+        #score {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas" width="200" height="400"></canvas>
+    <div id="gameContainer">
+        <div id="score">Счет: 0</div>
+        <canvas id="gameCanvas" width="200" height="400"></canvas>
+    </div>
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
@@ -26,31 +38,46 @@
         const cols = canvas.width / gridSize;
         const rows = canvas.height / gridSize;
 
-        // Текущий падающий блок
-        const block = {
-            x: Math.floor(cols / 2) - 1,
-            y: 0,
-            shape: [
-                [1, 1],
-                [1, 1]
-            ],
-            color: 'cyan'
-        };
+        let score = 0;
+        document.getElementById('score').textContent = `Счет: ${score}`;
 
-        // Игровое поле
+        // Определение тетромино
+        const tetrominoes = [
+            { shape: [[1,1,1,1]], color: 'cyan' }, // I
+            { shape: [[1,1],[1,1]], color: 'yellow' }, // O
+            { shape: [[1,1,1],[0,1,0]], color: 'purple' }, // T
+            { shape: [[1,1,1],[1,0,0]], color: 'blue' }, // L
+            { shape: [[1,1,1],[0,0,1]], color: 'orange' }, // J
+            { shape: [[1,1,0],[0,1,1]], color: 'green' }, // S
+            { shape: [[0,1,1],[1,1,0]], color: 'red' } // Z
+        ];
+
+        // Текущий блок
+        let currentBlock = createNewBlock();
         let grid = Array(rows).fill().map(() => Array(cols).fill(0));
+
+        function createNewBlock() {
+            const idx = Math.floor(Math.random() * tetrominoes.length);
+            const block = {
+                shape: JSON.parse(JSON.stringify(tetrominoes[idx].shape)),
+                color: tetrominoes[idx].color,
+                x: Math.floor(cols / 2) - Math.floor(tetrominoes[idx].shape[0].length / 2),
+                y: -2 // Начало выше видимой области
+            };
+            return block;
+        }
 
         // Отрисовка
         function draw() {
             ctx.fillStyle = 'black';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Рисуем блок
-            ctx.fillStyle = block.color;
-            for (let r = 0; r < block.shape.length; r++) {
-                for (let c = 0; c < block.shape[r].length; c++) {
-                    if (block.shape[r][c]) {
-                        ctx.fillRect((block.x + c) * gridSize, (block.y + r) * gridSize, gridSize - 1, gridSize - 1);
+            // Рисуем текущий блок
+            ctx.fillStyle = currentBlock.color;
+            for (let r = 0; r < currentBlock.shape.length; r++) {
+                for (let c = 0; c < currentBlock.shape[r].length; c++) {
+                    if (currentBlock.shape[r][c]) {
+                        ctx.fillRect((currentBlock.x + c) * gridSize, (currentBlock.y + r) * gridSize, gridSize - 1, gridSize - 1);
                     }
                 }
             }
@@ -59,7 +86,7 @@
             for (let r = 0; r < rows; r++) {
                 for (let c = 0; c < cols; c++) {
                     if (grid[r][c]) {
-                        ctx.fillStyle = 'gray';
+                        ctx.fillStyle = grid[r][c];
                         ctx.fillRect(c * gridSize, r * gridSize, gridSize - 1, gridSize - 1);
                     }
                 }
@@ -68,11 +95,11 @@
 
         // Проверка столкновений
         function collides(dx = 0, dy = 0) {
-            for (let r = 0; r < block.shape.length; r++) {
-                for (let c = 0; c < block.shape[r].length; c++) {
-                    if (block.shape[r][c]) {
-                        let newX = block.x + c + dx;
-                        let newY = block.y + r + dy;
+            for (let r = 0; r < currentBlock.shape.length; r++) {
+                for (let c = 0; c < currentBlock.shape[r].length; c++) {
+                    if (currentBlock.shape[r][c]) {
+                        let newX = currentBlock.x + c + dx;
+                        let newY = currentBlock.y + r + dy;
                         if (newX < 0 || newX >= cols || newY >= rows || (newY >= 0 && grid[newY][newX])) {
                             return true;
                         }
@@ -84,21 +111,51 @@
 
         // Закрепление блока на поле
         function merge() {
-            for (let r = 0; r < block.shape.length; r++) {
-                for (let c = 0; c < block.shape[r].length; c++) {
-                    if (block.shape[r][c]) {
-                        grid[block.y + r][block.x + c] = 1;
+            for (let r = 0; r < currentBlock.shape.length; r++) {
+                for (let c = 0; c < currentBlock.shape[r].length; c++) {
+                    if (currentBlock.shape[r][c]) {
+                        grid[currentBlock.y + r][currentBlock.x + c] = currentBlock.color;
                     }
                 }
             }
-            block.x = Math.floor(cols / 2) - 1;
-            block.y = 0;
+            clearLines();
+            currentBlock = createNewBlock();
+            if (collides()) {
+                alert('Игра окончена! Счет: ' + score);
+                grid = Array(rows).fill().map(() => Array(cols).fill(0));
+                score = 0;
+                document.getElementById('score').textContent = `Счет: ${score}`;
+            }
+        }
+
+        // Очистка заполненных линий
+        function clearLines() {
+            for (let r = rows - 1; r >= 0; r--) {
+                if (grid[r].every(cell => cell !== 0)) {
+                    grid.splice(r, 1);
+                    grid.unshift(Array(cols).fill(0));
+                    score += 100;
+                    document.getElementById('score').textContent = `Счет: ${score}`;
+                }
+            }
+        }
+
+        // Поворот блока
+        function rotate() {
+            const rotated = currentBlock.shape[0].map((_, index) =>
+                currentBlock.shape.map(row => row[index]).reverse()
+            );
+            const prevShape = currentBlock.shape;
+            currentBlock.shape = rotated;
+            if (collides()) {
+                currentBlock.shape = prevShape;
+            }
         }
 
         // Движение вниз
         function drop() {
             if (!collides(0, 1)) {
-                block.y++;
+                currentBlock.y++;
             } else {
                 merge();
             }
@@ -107,9 +164,10 @@
 
         // Управление
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft' && !collides(-1, 0)) block.x--;
-            if (e.key === 'ArrowRight' && !collides(1, 0)) block.x++;
+            if (e.key === 'ArrowLeft' && !collides(-1, 0)) currentBlock.x--;
+            if (e.key === 'ArrowRight' && !collides(1, 0)) currentBlock.x++;
             if (e.key === 'ArrowDown') drop();
+            if (e.key === 'ArrowUp') rotate();
             draw();
         });
 
